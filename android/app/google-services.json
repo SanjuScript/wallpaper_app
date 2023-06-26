@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "911233992430",
+    "project_id": "chatapp-dc84c",
+    "storage_bucket": "chatapp-dc84c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911233992430:android:0ad48c996e6f2e91f515ff",
+        "android_client_info": {
+          "package_name": "apps.sanju.wallmuse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911233992430-rt6t90nkbataqhevbmtgdqt8ck39uihg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQJoFHL5-M--n6YLkS6BTLgmh8aGtdQUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911233992430-rt6t90nkbataqhevbmtgdqt8ck39uihg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "911233992430-0i8snbtl7b5qvcf7cfuf8m3a0811kuco.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.audioVideoConverter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911233992430:android:44213cdc2338cfa1f515ff",
+        "android_client_info": {
+          "package_name": "com.example.audio_video_converter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911233992430-rt6t90nkbataqhevbmtgdqt8ck39uihg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQJoFHL5-M--n6YLkS6BTLgmh8aGtdQUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911233992430-rt6t90nkbataqhevbmtgdqt8ck39uihg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "911233992430-0i8snbtl7b5qvcf7cfuf8m3a0811kuco.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.audioVideoConverter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
