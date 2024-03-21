@@ -105,8 +105,10 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                       return Padding(
                         padding: const EdgeInsets.all(3),
                         child: InkWell(
-                          onTap: () {
+                          onTap: () async{
+                              await precacheImage(NetworkImage(categoryImages[index].src!.large2x!), context);
                             Navigator.push(
+                              // ignore: use_build_context_synchronously
                               context,
                               MaterialPageRoute(
                                 builder: ((context) => ImageFullScreenViewer(

@@ -12,7 +12,6 @@ class WallMuse {
     this.totalResults,
     this.nextPage,
   });
-
   factory WallMuse.fromJson(Map<String, dynamic> json) {
     return WallMuse(
       page: json['page'],

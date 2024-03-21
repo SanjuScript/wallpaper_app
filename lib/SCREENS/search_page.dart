@@ -7,26 +7,23 @@ import 'package:wallpaper_app/COLORS/colors.dart';
 import 'package:wallpaper_app/PROVIDER/image_search_query_provider.dart';
 import 'package:wallpaper_app/animation/imageLoadingAnimation.dart';
 import 'package:wallpaper_app/screens/image_full_view.dart';
-import 'package:wallpaper_app/widgets/widgets.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ht = MediaQuery.of(context).size.height;
-    final wt = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
     final searchProvider = Provider.of<SearchProvider>(context);
-    
+
     return Scaffold(
       backgroundColor: GetColor.bgColor,
       body: Stack(
         children: [
-      
           Positioned.fill(
             child: Column(
               children: [
-                SizedBox(height: ht / 14),
+                SizedBox(height: size.height / 14),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -89,9 +86,6 @@ class SearchPage extends StatelessWidget {
                       gridDelegate:
                           const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        // childAspectRatio: 0.6,
-                        // crossAxisSpacing: 10,
-                        // mainAxisSpacing: 10,
                       ),
                       itemCount: searchProvider.searchResults.length,
                       itemBuilder: (context, index) {
@@ -109,15 +103,15 @@ class SearchPage extends StatelessWidget {
                                 ),
                               );
                             },
-                            
                             child: CachedNetworkImage(
                               imageUrl: photo.src!.tiny!,
                               imageBuilder: (context, imageProvider) => Hero(
-                                tag: photo.id!,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                  child: Image.network(photo.src!.medium!))
-                              ),
+                                  tag: photo.id!,
+                                  child: ClipRRect(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                      child:
+                                          Image.network(photo.src!.medium!))),
                               placeholder: (context, url) {
                                 return const ImageLoadingAnimation();
                               },

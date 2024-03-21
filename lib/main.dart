@@ -15,7 +15,6 @@ void main() async {
   }
 
   await initGoogleMobileAds();
-
   await Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();

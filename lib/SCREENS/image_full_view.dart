@@ -13,6 +13,7 @@ import 'package:wallpaper_app/COLORS/colors.dart';
 import 'package:wallpaper_app/HELPER/ad_helper.dart';
 import 'package:wallpaper_app/HELPER/color_helper.dart';
 import 'package:wallpaper_app/MODEL/wall_muse_model.dart';
+import 'package:wallpaper_app/WIDGETS/download_button.dart';
 import '../widgets/widgets.dart';
 
 class ImageFullScreenViewer extends StatefulWidget {
@@ -117,28 +118,56 @@ class _ImageFullScreenViewerState extends State<ImageFullScreenViewer> {
     final wt = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: individualImage != null
-          ? hexToColor(individualImage!.avgColor!)
-          : Colors.blue[200]!.withOpacity(.7),
       body: Stack(
         children: [
-          if (individualImage != null)
-            buildCachedNetworkImage(ht, wt)
-          else
-            Center(child: messageWithLoading(context)),
-          if (_progress != null)
-            LinearProgressIndicator(
-              value: _progress,
-              minHeight: 10,
-              color: Colors.purple,
-              backgroundColor: Colors.white.withOpacity(.4),
-            ),
+          if (individualImage != null) _buildBackgroundImage(context, ht, wt),
+          _buildContent(context, ht, wt),
         ],
       ),
     );
   }
 
-  Widget buildCachedNetworkImage(double ht, double wt) {
+  Widget _buildBackgroundImage(BuildContext context, double ht, double wt) {
+    return SizedBox(
+      height: ht,
+      width: wt,
+      child: CachedNetworkImage(
+        imageUrl: individualImage!.src!.large2x!,
+        fit: BoxFit.cover,
+        placeholder: (context, url) => Container(color: Colors.transparent),
+        errorWidget: (context, url, error) =>
+            Container(color: Colors.transparent),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, double ht, double wt) {
+    return Center(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          color: individualImage != null
+              ? hexToColor(individualImage!.avgColor!).withOpacity(.2)
+              : Colors.black.withOpacity(.2),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (individualImage != null) _buildCachedNetworkImage(ht, wt),
+              if (_progress != null)
+                LinearProgressIndicator(
+                  value: _progress,
+                  minHeight: 10,
+                  color: Colors.purple,
+                  backgroundColor: Colors.white.withOpacity(.4),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCachedNetworkImage(double ht, double wt) {
     return CachedNetworkImage(
       placeholder: (context, url) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -153,14 +182,14 @@ class _ImageFullScreenViewerState extends State<ImageFullScreenViewer> {
             child: Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
                   child: Image(
                     gaplessPlayback: true,
                     image: imageProvider,
                     filterQuality: FilterQuality.high,
                   ),
                 ),
-                buildDownloadButtons(ht, wt, context),
+                _buildDownloadButtons(ht, wt, context),
               ],
             ),
           ),
@@ -169,7 +198,7 @@ class _ImageFullScreenViewerState extends State<ImageFullScreenViewer> {
     );
   }
 
-  Widget buildDownloadButtons(double ht, double wt, BuildContext context) {
+  Widget _buildDownloadButtons(double ht, double wt, BuildContext context) {
     return Positioned(
       bottom: 0,
       right: 0,
@@ -181,49 +210,21 @@ class _ImageFullScreenViewerState extends State<ImageFullScreenViewer> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              buildDownloadButton(
-                  "Download Image", individualImage!.src!.large2x!, context,
-                  is1st: true),
+              DonwloadButton(
+                  onTap: () async {
+                    saveFile(individualImage!.src!.large2x!);
+                  },
+                  is1st: true,
+                  text: "Donwload Image"),
               SizedBox(height: ht / 20),
-              buildDownloadButton("Download Full Quality Image",
-                  individualImage!.src!.original!, context,
-                  is1st: false),
+              DonwloadButton(
+                  onTap: () async {
+                    saveFile(individualImage!.src!.original!);
+                  },
+                  is1st: true,
+                  text: "Download Full Quality Image"),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildDownloadButton(String text, String url, BuildContext context,
-      {required bool is1st}) {
-    final ht = MediaQuery.of(context).size.height;
-    final wt = MediaQuery.of(context).size.width;
-    return InkWell(
-      onTap: () async {
-        _rewardedAd?.show(onUserEarnedReward: (ad, reward) {
-          saveFile(url);
-        });
-      },
-      child: Container(
-        height: ht / 18,
-        width: is1st ? wt * .50 : wt * .70,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(128, 148, 138, 138),
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(width: 1, color: Colors.white),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(),
-            Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontFamily: 'optica', color: Colors.white),
-            ),
-            Icon(Icons.download, color: Colors.white),
-          ],
         ),
       ),
     );

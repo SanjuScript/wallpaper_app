@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -12,7 +11,6 @@ import 'package:wallpaper_app/model/catagories_model.dart';
 import 'package:wallpaper_app/screens/search_page.dart';
 import 'package:wallpaper_app/screens/trending_wallpapers.dart';
 import 'package:wallpaper_app/widgets/widgets.dart';
-import '../animation/animationPageController.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key});
@@ -48,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final ht = MediaQuery.of(context).size.height;
     final wt = MediaQuery.of(context).size.width;
- 
+
     return RefreshIndicator.adaptive(
       triggerMode: RefreshIndicatorTriggerMode.anywhere,
       onRefresh: () {
@@ -61,9 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
         body: ListView(controller: _scrollController, children: [
           Column(
             children: [
-            
               // space,
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 height: ht * 0.2,
                 width: wt * 0.9,
@@ -83,14 +82,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
-              
+              SizedBox(
+                height: 20,
+              ),
+
               InkWell(
                 onTap: () {
+                
                   Navigator.push(
-                    context,
-                    SearchAnimationNavigation(const SearchPage()),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SearchPage()));
                 },
                 child: Container(
                   height: ht * 0.08,
@@ -121,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              
+
               SizedBox(
                 height: ht * .15,
                 width: wt,
@@ -166,12 +168,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-                InkWell(
+              InkWell(
                 onTap: () {
                   Navigator.push(
-                    context,
-                    SearchAnimationNavigation(TrendingWallpaperPage()),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TrendingWallpaperPage()));
                 },
                 child: Container(
                   height: ht / 20,
